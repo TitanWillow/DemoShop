@@ -1,4 +1,4 @@
-const Product = require('../models/Product.js');
+const Product = require('../models/product.js');
 const MOCK_PRODUCTS_LIST = require('../utils/mockProductData');
 
 exports.getProducts = async (req, res) => {
