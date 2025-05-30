@@ -1,5 +1,5 @@
-const Order = require('../models/Order');
-const Product = require('../models/Product');
+const Order = require('../models/order.js');
+const Product = require('../models/product.js');
 const sendEmail = require('../utils/emailService');
 
 exports.processCheckout = async (req, res, next) => {
