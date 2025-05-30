@@ -1,0 +1,11 @@
+import { useState } from 'react';
+import Button from '../common/Button';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+const ImageGallery = ({ imageUrls, productName }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  if (!imageUrls || imageUrls.length === 0) { return <img src="https://placehold.co/600x500/CCCCCC/777777?text=No+Image" alt="No product image" className="w-full h-auto max-h-[500px] object-contain rounded-lg shadow-md"/>; }
+  const nextImage = () => setCurrentImageIndex((prev) => (prev + 1) % imageUrls.length);
+  const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + imageUrls.length) % imageUrls.length);
+  return ( <div className="md:w-1/2 p-4"> <div className="relative mb-2"> <img src={imageUrls[currentImageIndex]} alt={`${productName} - view ${currentImageIndex + 1}`} className="w-full h-auto max-h-[500px] object-contain rounded-lg shadow-md" onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/600x500/CCCCCC/777777?text=Image+Error"; }} /> {imageUrls.length > 1 && ( <> <Button onClick={prevImage} variant="ghost" size="small" className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white/80 p-2 rounded-full aspect-square !shadow-lg"><ChevronLeft size={20}/></Button> <Button onClick={nextImage} variant="ghost" size="small" className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white/80 p-2 rounded-full aspect-square !shadow-lg"><ChevronRight size={20}/></Button> </> )} </div> {imageUrls.length > 1 && ( <div className="flex space-x-2 overflow-x-auto p-1"> {imageUrls.map((url, index) => ( <img key={index} src={url} alt={`Thumbnail ${index + 1}`} className={`w-20 h-20 object-cover rounded-md cursor-pointer border-2 ${index === currentImageIndex ? 'border-indigo-500' : 'border-transparent hover:border-gray-300'}`} onClick={() => setCurrentImageIndex(index)} onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/80x80/CCCCCC/777777?text=Thumb"; }} /> ))} </div> )} </div> );
+};
+export default ImageGallery;
